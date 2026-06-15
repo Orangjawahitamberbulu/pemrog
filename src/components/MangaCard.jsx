@@ -1,7 +1,10 @@
 import React from 'react';
 import { Star, Heart, Bookmark } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function MangaCard({ manga, isFavorite, onToggleFavorite, onClickCard }) {
+  const navigate = useNavigate();
+
   // Safe extraction of fields from Jikan API response structure
   const title = manga.title || manga.title_english || 'Unknown Title';
   const imageUrl = manga.images?.jpg?.large_image_url || manga.images?.jpg?.image_url || 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=300&auto=format&fit=crop';
@@ -13,13 +16,17 @@ export default function MangaCard({ manga, isFavorite, onToggleFavorite, onClick
   const genres = manga.genres?.slice(0, 2).map(g => g.name) || [];
 
   const handleFavoriteClick = (e) => {
-    e.stopPropagation(); // Prevent opening modal
+    e.stopPropagation(); // Prevent navigation/modal
     onToggleFavorite(manga);
+  };
+
+  const handleCardClick = () => {
+    navigate(`/book/${manga.mal_id}`);
   };
 
   return (
     <div 
-      onClick={() => onClickCard(manga)}
+      onClick={handleCardClick}
       className="group relative flex flex-col overflow-hidden rounded-2xl bg-brand-cardBg border border-brand-border cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-orange/40 hover:shadow-neon"
     >
       {/* Cover Image Container */}

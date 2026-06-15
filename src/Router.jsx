@@ -29,12 +29,14 @@ import SupernaturalGenrePage from './pages/SupernaturalGenrePage';
 import MysteryGenrePage from './pages/MysteryGenrePage';
 import PublisherPage from './components/PublisherPage';
 import LoginPage from './pages/LoginPage';
+import BookDetailPage from './pages/BookDetailPage';
 
 export default function AppRouter({ catalogElement, favoritesElement, aboutElement, favorites, onToggleFavorite }) {
   return (
     <Routes>
       <Route path="/" element={catalogElement} />
       <Route path="/catalog" element={catalogElement} />
+      <Route path="/book/:id" element={<BookDetailPage />} />
       <Route path="/favorites" element={favoritesElement} />
       <Route path="/about" element={aboutElement} />
       <Route path="/login" element={<LoginPage />} />

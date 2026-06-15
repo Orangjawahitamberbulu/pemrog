@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star, Flame, TrendingUp, Clock, BookOpen } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // Static slide metadata with fallback data baked in
 const SLIDE_CONFIG = [
@@ -62,6 +63,7 @@ const slideVariants = {
 };
 
 export default function HeroCarousel({ onClickManga, mangaList, useLiveApi = true, themeColor = null }) {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
@@ -298,7 +300,7 @@ export default function HeroCarousel({ onClickManga, mangaList, useLiveApi = tru
                 {/* Action buttons */}
                 <div className="flex items-center gap-3 pt-1">
                   <button
-                    onClick={() => onClickManga && onClickManga(current.manga)}
+                    onClick={() => navigate(`/book/${current.manga.mal_id}`)}
                     className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-neon hover:shadow-neon-hover transition-all duration-200 hover:scale-105 ${current.btnColor || 'bg-brand-orange hover:bg-brand-accent'}`}
                   >
                     <BookOpen className="h-4 w-4" />
